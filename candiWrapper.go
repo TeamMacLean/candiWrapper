@@ -73,6 +73,9 @@ func handler(w http.ResponseWriter, req *http.Request) {
 			log.Println(chalk.Red,"could not parse form", chalk.Reset)
 		} else {
 
+			log.Println(req.Form)
+
+
 			galaxyData := req.FormValue(keyName)
 			galaxyDataLength := len(galaxyData)
 
