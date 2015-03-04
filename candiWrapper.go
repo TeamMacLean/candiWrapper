@@ -29,8 +29,6 @@ var (
 	keyName = "galaxyData"
 	)
 
-const _24K = (1 << 20) * 24  
-
 func randSeq() string {
 	b := make([]rune, randomStringLength)
 	for i := range b {
@@ -68,7 +66,7 @@ func handler(w http.ResponseWriter, req *http.Request) {
 	log.Println(chalk.Blue,"type: "+reqType,chalk.Reset)
 
 	if reqType == "POST" {
-		err := req.ParseMultipartForm(_24K)
+		err := req.ParseForm()
 
 		if err != nil {
 			log.Println(chalk.Red,"could not parse form", chalk.Reset)
