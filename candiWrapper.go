@@ -27,7 +27,7 @@ var (
 	randomStringLength = 10
 	rootURL = "http://candisnp.tsl.ac.uk/martin/"
 	keyName = "galaxyData"
-)
+	)
 
 func randSeq() string {
 	b := make([]rune, randomStringLength)
@@ -42,7 +42,7 @@ func initRedis() redis.Conn {
 	if err != nil {
 		panic(err)
 	}
-	// defer redisConnection.Close()
+				// defer redisConnection.Close()
 	return redisConnection
 }
 
@@ -95,8 +95,12 @@ func handler(w http.ResponseWriter, req *http.Request) {
 				if len(fromRedis) > 0 {
 
 					js, err := json.Marshal(fromRedis)
+					if err != nil {
+						http.Error(w, err.Error(), http.StatusInternalServerError)
+						return
+					}
 					w.Header().Set("Content-Type", "application/json")
-					w.Write(js)				
+					w.Write(js)
 				}
 			}
 		}
@@ -108,5 +112,4 @@ func handler(w http.ResponseWriter, req *http.Request) {
 		log.Println(chalk.Green,"Starting server on port "+port, chalk.Reset)
 		http.ListenAndServe(port, nil)
 
-		
 	}
