@@ -55,7 +55,7 @@ func addToRedis(key string, value string){
 func getFromRedis(key string) string{
 	value, err := redis.String(redisConnection.Do("GET", key))
 	if err != nil {
-		fmt.Println(chalk.Red,"key not found", chalk.Reset)
+		fmt.Println("key does not exist in DB")
 	}
 	return value
 }
