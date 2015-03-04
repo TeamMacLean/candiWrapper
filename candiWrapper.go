@@ -60,7 +60,7 @@ func getFromRedis(key string) string{
 }
 
 func handler(w http.ResponseWriter, req *http.Request) {
-	
+	w.Header().Set("Access-Control-Allow-Origin", "*")
 
 	reqType := req.Method
 	log.Println(chalk.Blue,"type: "+reqType,chalk.Reset)
@@ -99,10 +99,10 @@ func handler(w http.ResponseWriter, req *http.Request) {
 						http.Error(w, err.Error(), http.StatusInternalServerError)
 						return
 					}
-					w.Header().Set("Access-Control-Allow-Origin", "*")
 					w.Header().Set("Content-Type", "application/json")
 					w.Write(js)
 					log.Println("sent data")
+
 				}
 			}
 		}
