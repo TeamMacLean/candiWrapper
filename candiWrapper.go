@@ -92,7 +92,10 @@ func handler(w http.ResponseWriter, req *http.Request) {
 				fromRedis := getFromRedis(shortcode)
 
 				if len(fromRedis) > 0 {
-					fmt.Fprintf(w, fromRedis)
+
+					js, err := json.Marshal(fromRedis)
+					w.Header().Set("Content-Type", "application/json")
+					w.Write(js)				
 				}
 			}
 		}
