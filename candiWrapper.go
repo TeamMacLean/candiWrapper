@@ -77,17 +77,6 @@ func handler(w http.ResponseWriter, req *http.Request) {
 			galaxyData := req.FormValue(keyName)
 			refData := req.FormValue(refName)
 
-			// log.Println("ref: "+refData)
-			// log.Println("data: "+galaxyData)
-
-			if galaxyDataLength > 0 && refDataLength > 0 {
-				rd, err := json.Marshal(refData)
-				gd, err := json.Marshal(galaxyData)
-				log.Println("ref: "+rd)
-				log.Println("data: "+gd)
-
-			}
-
 			galaxyDataLength := len(galaxyData)
 			refDataLength := len(refData)
 
