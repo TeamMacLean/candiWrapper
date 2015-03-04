@@ -17,7 +17,8 @@ var (
 	letters = []rune("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ")
 	randomStringLength = 10
 	rootURL = "http://candisnp.tsl.ac.uk/martin/"
-	keyName = "galaxyData"
+	keyName = "data"
+	refName = "ref"
 	)
 
 func randSeq() string {
@@ -73,10 +74,16 @@ func handler(w http.ResponseWriter, req *http.Request) {
 			log.Println(chalk.Red,"could not parse form", chalk.Reset)
 		} else {
 
-			log.Println(req.Form)
+			
 
 
 			galaxyData := req.FormValue(keyName)
+			refData := req.FormValue(refName)
+
+			log.Println(galaxyData)
+			log.Println(refData)
+
+
 			galaxyDataLength := len(galaxyData)
 
 			if galaxyDataLength > 0 {
