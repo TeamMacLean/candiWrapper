@@ -10,15 +10,15 @@ import (
 "github.com/garyburd/redigo/redis"
 )
 
-type Session struct {
-	Id		string		`param:"id"`
-}
+// type Session struct {
+// 	Id		string		`param:"id"`
+// }
 
-var Sessions = []Session{}
+// var Sessions = []Session{}
 
-type test_struct struct {
-	Test string
-}
+// type test_struct struct {
+// 	Test string
+// }
 
 var (
 	port = ":8080"
@@ -42,7 +42,6 @@ func initRedis() redis.Conn {
 	if err != nil {
 		panic(err)
 	}
-				// defer redisConnection.Close()
 	return redisConnection
 }
 
@@ -79,7 +78,7 @@ func handler(w http.ResponseWriter, req *http.Request) {
 
 				id := randSeq();
 				addToRedis(id, galaxyData);
-				fmt.Fprintf(w, rootURL+"?session="+id)
+				fmt.Fprintf(w, rootURL+"?session="+id+"&species=athalianaTair10")
 
 				log.Println(rootURL+"?session="+id)
 
