@@ -81,6 +81,8 @@ func handler(w http.ResponseWriter, req *http.Request) {
 				addToRedis(id, galaxyData);
 				fmt.Fprintf(w, rootURL+"?session="+id)
 
+				log.Println(rootURL+"?session="+id)
+
 			}
 		}
 
