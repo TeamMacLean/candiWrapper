@@ -101,6 +101,8 @@ func handler(w http.ResponseWriter, req *http.Request) {
 					}
 					w.Header().Set("Content-Type", "application/json")
 					w.Write(js)
+					log.Println("sent data")
+
 				}
 			}
 		}
