@@ -1,3 +1,6 @@
+$.post({
+url: "http://candisnp.tsl.ac.uk:8080",
+data:
 [
     {
         "is_synonymous": "FALSE",
@@ -51635,4 +51638,8 @@
         "in_cds": "TRUE",
         "alternate_base": "T"
     }
-]
+],
+success: function(data) {
+        console.log('BACK',data);
+    }
+});
