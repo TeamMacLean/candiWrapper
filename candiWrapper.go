@@ -74,19 +74,24 @@ func handler(w http.ResponseWriter, req *http.Request) {
 			log.Println(chalk.Red,"could not parse form", chalk.Reset)
 		} else {
 
-			
-
-
 			galaxyData := req.FormValue(keyName)
 			refData := req.FormValue(refName)
 
-			log.Println(galaxyData)
-			log.Println(refData)
+			// log.Println("ref: "+refData)
+			// log.Println("data: "+galaxyData)
 
+			if galaxyDataLength > 0 && refDataLength > 0 {
+				rd, err := json.Marshal(refData)
+				gd, err := json.Marshal(galaxyData)
+				log.Println("ref: "+rd)
+				log.Println("data: "+gd)
+
+			}
 
 			galaxyDataLength := len(galaxyData)
+			refDataLength := len(refData)
 
-			if galaxyDataLength > 0 {
+			if galaxyDataLength > 0 && refDataLength > 0{
 
 				id := randSeq();
 				addToRedis(id, galaxyData);
