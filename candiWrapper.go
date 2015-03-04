@@ -6,19 +6,10 @@ import (
 "math/rand"
 "encoding/json"
 "net/http"
+"time"
 "github.com/ttacon/chalk"
 "github.com/garyburd/redigo/redis"
 )
-
-// type Session struct {
-// 	Id		string		`param:"id"`
-// }
-
-// var Sessions = []Session{}
-
-// type test_struct struct {
-// 	Test string
-// }
 
 var (
 	port = ":8080"
@@ -30,11 +21,22 @@ var (
 	)
 
 func randSeq() string {
+
+	rand.Seed(time.Now().UTC().UnixNano())
 	b := make([]rune, randomStringLength)
 	for i := range b {
 		b[i] = letters[rand.Intn(len(letters))]
 	}
-	return string(b)
+
+	sOut := string(b)
+
+	if(len(getFromRedis(sOut)) > 0){
+		return randSeq()
+	} else {
+		return sOut
+		
+	}
+	
 }
 
 func initRedis() redis.Conn {
