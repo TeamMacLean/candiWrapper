@@ -4,6 +4,7 @@ import (
 "fmt"
 "log"
 "math/rand"
+"encoding/json"
 "net/http"
 "github.com/ttacon/chalk"
 "github.com/garyburd/redigo/redis"
