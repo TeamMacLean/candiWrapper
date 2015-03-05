@@ -83,9 +83,8 @@ func handler(w http.ResponseWriter, req *http.Request) {
 
 				id := randSeq();
 
-				jsonGalaxyData, _ := json.Marshal(galaxyData)
 
-				addToRedis(id, string(jsonGalaxyData));
+				addToRedis(id, string(galaxyData));
 				
 				fmt.Fprintf(w, rootURL+"?session="+id+"&species=athalianaTair10")
 				log.Println(rootURL+"?session="+id+"&species=athalianaTair10")
