@@ -95,13 +95,13 @@ func handlePost(w http.ResponseWriter, req *http.Request){
     if err != nil {
         panic(err)
     }
-    log.Println(string(body))
+    // log.Println(string(body))
     var t JsonData
     err = json.Unmarshal(body, &t)
     if err != nil {
         panic(err)
     }
-    log.Println(t)
+    log.Println(Ref)
 
 		// for key, value := range req.Form {
 		// 	fmt.Println("Key:", key, "Value:", value)
