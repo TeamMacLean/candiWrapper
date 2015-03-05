@@ -5,6 +5,9 @@
 
 > An interface between Galaxy and CandiSNP
 
+CandiWrapper is a tool that sits between Galaxy and CandiSNP to handle interaction between the two.
+When Galaxy posts snpEff data to it, it save the data to a redis database and return a url to the user, when the user follows the link it opens CandiSNP which pulls the data to be rendered.
+
 
 
 
