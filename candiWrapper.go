@@ -104,9 +104,12 @@ type JsonData struct {
 			log.Println(t.Ref)
 
 
-			for a := range t.Data {
+			for a, b := range t.Data {
 				log.Println(a)
+				log.Println(b)
 			}
+
+			logIt(w, "response")
 
 		// for key, value := range req.Form {
 		// 	fmt.Println("Key:", key, "Value:", value)
