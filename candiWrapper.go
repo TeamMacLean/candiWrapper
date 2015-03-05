@@ -22,7 +22,7 @@ var (
 	)
 
 type test_struct struct {
-    Data string
+    Data array
     Ref string
 }
 
