@@ -7,6 +7,7 @@ import (
 "encoding/json"
 "net/http"
 "time"
+"io/ioutil"
 "github.com/garyburd/redigo/redis"
 )
 
@@ -72,7 +73,10 @@ func handlePost(w http.ResponseWriter, req *http.Request){
 		logIt(w, "could not parse form")
 	} else {
 
-			log.Println(req)
+			defer resp.Body.Close()
+			body, err := ioutil.ReadAll(resp.Body)
+
+			log.Println(body)
 
 			for key, value := range req.Form {
     			fmt.Println("Key:", key, "Value:", value)
