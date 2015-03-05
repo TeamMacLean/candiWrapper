@@ -21,10 +21,23 @@ var (
 	refName = "ref"
 	)
 
-type test_struct struct {
-    Data array
-    Ref string
+type JsonData struct {
+	Data []struct {
+		AlleleFreq    float64 `json:"allele_freq"`
+		AlternateBase string  `json:"alternate_base"`
+		Change        string  `json:"change"`
+		Chromosome    string  `json:"chromosome"`
+		Effect        string  `json:"effect"`
+		Gene          string  `json:"gene"`
+		InCds         string  `json:"in_cds"`
+		IsCtga        string  `json:"is_ctga"`
+		IsSynonymous  string  `json:"is_synonymous"`
+		Position      float64 `json:"position"`
+		ReferenceBase string  `json:"reference_base"`
+	} `json:"data"`
+	Ref string `json:"ref"`
 }
+
 
 func randSeq() string {
 
@@ -83,7 +96,7 @@ func handlePost(w http.ResponseWriter, req *http.Request){
         panic(err)
     }
     log.Println(string(body))
-    var t test_struct
+    var t JsonData
     err = json.Unmarshal(body, &t)
     if err != nil {
         panic(err)
