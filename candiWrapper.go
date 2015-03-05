@@ -7,7 +7,6 @@ import (
 "encoding/json"
 "net/http"
 "time"
-"io/ioutil"
 "github.com/garyburd/redigo/redis"
 )
 
@@ -20,6 +19,10 @@ var (
 	keyName = "data"
 	refName = "ref"
 	)
+
+type test_struct struct {
+    Test string
+}
 
 func randSeq() string {
 
@@ -73,14 +76,21 @@ func handlePost(w http.ResponseWriter, req *http.Request){
 		logIt(w, "could not parse form")
 	} else {
 
-			defer req.Body.Close()
-			body, _ := ioutil.ReadAll(req.Body)
+		body, err := ioutil.ReadAll(req.Body)
+    if err != nil {
+        panic()
+    }
+    log.Println(string(body))
+    var t test_struct
+    err = json.Unmarshal(body, &t)
+    if err != nil {
+        panic()
+    }
+    log.Println(t.Test)
 
-			log.Println(body)
-
-			for key, value := range req.Form {
-    			fmt.Println("Key:", key, "Value:", value)
-			}
+		for key, value := range req.Form {
+			fmt.Println("Key:", key, "Value:", value)
+		}
 
 		// log.Println("REF: "+req.FormValue(refName))
 		// log.Println("DATA: "+req.FormValue(keyName))
@@ -128,18 +138,18 @@ func handler(w http.ResponseWriter, req *http.Request) {
 
 	if reqType == "POST" {
 		handlePost(w, req)
-	} else if reqType == "GET" {
-		handleGet(w,req)			
-	} else {
-		logIt(w, "did not receive GET or POST")
+		} else if reqType == "GET" {
+			handleGet(w,req)			
+		} else {
+			logIt(w, "did not receive GET or POST")
+		}
 	}
-}
 
-func main() {
-	defer redisConnection.Close()
-	defer log.Println("Server Stopped")
-	http.HandleFunc("/", handler)
-	log.Println("Starting server on port "+port)
-	http.ListenAndServe(port, nil)
+	func main() {
+		defer redisConnection.Close()
+		defer log.Println("Server Stopped")
+		http.HandleFunc("/", handler)
+		log.Println("Starting server on port "+port)
+		http.ListenAndServe(port, nil)
 
-}
+	}
