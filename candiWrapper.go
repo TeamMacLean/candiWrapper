@@ -22,7 +22,8 @@ var (
 	)
 
 type test_struct struct {
-    Test string
+    Data string
+    Ref string
 }
 
 func randSeq() string {
@@ -87,20 +88,17 @@ func handlePost(w http.ResponseWriter, req *http.Request){
     if err != nil {
         panic(err)
     }
-    log.Println(t.Test)
+    log.Println(t)
 
-		for key, value := range req.Form {
-			fmt.Println("Key:", key, "Value:", value)
-		}
+		// for key, value := range req.Form {
+		// 	fmt.Println("Key:", key, "Value:", value)
+		// }
 
-		// log.Println("REF: "+req.FormValue(refName))
-		// log.Println("DATA: "+req.FormValue(keyName))
+		// galaxyData := req.PostFormValue(keyName)
+		// refData := req.PostFormValue(refName)
 
-		galaxyData := req.PostFormValue(keyName)
-		refData := req.PostFormValue(refName)
-
-		galaxyDataLength := len(galaxyData)
-		refDataLength := len(refData)
+		// galaxyDataLength := len(galaxyData)
+		// refDataLength := len(refData)
 
 		if galaxyDataLength > 0 && refDataLength > 0{
 
