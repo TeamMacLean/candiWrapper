@@ -72,7 +72,7 @@ func handlePost(w http.ResponseWriter, req *http.Request){
 		logIt(w, "could not parse form")
 	} else {
 
-			log.Println(req.Form)
+			log.Println(req)
 
 			for key, value := range req.Form {
     			fmt.Println("Key:", key, "Value:", value)
