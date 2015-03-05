@@ -73,8 +73,8 @@ func handlePost(w http.ResponseWriter, req *http.Request){
 		logIt(w, "could not parse form")
 	} else {
 
-			defer resp.Body.Close()
-			body, err := ioutil.ReadAll(resp.Body)
+			defer req.Body.Close()
+			body, err := ioutil.ReadAll(req.Body)
 
 			log.Println(body)
 
