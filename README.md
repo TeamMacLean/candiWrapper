@@ -1,7 +1,7 @@
 # CandiWrapper
 
 
-<img align="right" height="300" src="https://raw.githubusercontent.com/wookoouk/candiWrapper/master/logo.svg">
+<img align="right" height="300" src="https://raw.githubusercontent.com/wookoouk/candiWrapper/master/logo.png">
 
 > An interface between Galaxy and CandiSNP
 
