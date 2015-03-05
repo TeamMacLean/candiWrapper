@@ -83,7 +83,10 @@ func handler(w http.ResponseWriter, req *http.Request) {
 			if galaxyDataLength > 0 && refDataLength > 0{
 
 				id := randSeq();
-				addToRedis(id, galaxyData);
+
+				jsonGalaxyData, _ := json.Marshal(galaxyData)
+
+				addToRedis(id, string(jsonGalaxyData));
 				
 				fmt.Fprintf(w, rootURL+"?session="+id+"&species=athalianaTair10")
 				log.Println(rootURL+"?session="+id+"&species=athalianaTair10")
