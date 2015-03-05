@@ -115,13 +115,9 @@ func handler(w http.ResponseWriter, req *http.Request) {
 
 	if reqType == "POST" {
 		handlePost(w, req)
-	}
-
-	else if reqType == "GET" {
+	} else if reqType == "GET" {
 		handleGet(w,req)			
-	}
-
-	else {
+	} else {
 		logIt(w, "did not receive GET or POST")
 	}
 }
