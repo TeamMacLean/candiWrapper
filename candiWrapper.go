@@ -72,15 +72,11 @@ func handlePost(w http.ResponseWriter, req *http.Request){
 		logIt(w, "could not parse form")
 	} else {
 
+		// log.Println("REF: "+req.FormValue(refName))
+		// log.Println("DATA: "+req.FormValue(keyName))
 
-		log.Println(req.Form)
-
-
-		log.Println("REF: "+req.FormValue(refName))
-		log.Println("DATA: "+req.FormValue(keyName))
-
-		galaxyData := req.FormValue(keyName)
-		refData := req.FormValue(refName)
+		galaxyData := req.PostFormValue(keyName)
+		refData := req.PostFormValue(refName)
 
 		galaxyDataLength := len(galaxyData)
 		refDataLength := len(refData)
