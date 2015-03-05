@@ -83,6 +83,7 @@ func handler(w http.ResponseWriter, req *http.Request) {
 
 				id := randSeq();
 
+
 				addToRedis(id, string(galaxyData));
 				
 				fmt.Fprintf(w, rootURL+"?session="+id+"&species=athalianaTair10")
@@ -101,13 +102,16 @@ func handler(w http.ResponseWriter, req *http.Request) {
 
 				if len(fromRedis) > 0 {
 
-					// js, err := json.Marshal(fromRedis)
-					// if err != nil {
-						// http.Error(w, err.Error(), http.StatusInternalServerError)
-						// return
-					// }
+					js, err := json.Marshal(fromRedis)
+					if err != nil {
+						http.Error(w, err.Error(), http.StatusInternalServerError)
+						return
+					}
+
+					log.Println(fromRedis);
+
 					w.Header().Set("Content-Type", "application/json")
-					w.Write(fromRedis)
+					w.Write(js)
 					log.Println("sent data")
 
 				}
