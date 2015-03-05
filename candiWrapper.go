@@ -74,7 +74,7 @@ func handlePost(w http.ResponseWriter, req *http.Request){
 	} else {
 
 			defer req.Body.Close()
-			body, err := ioutil.ReadAll(req.Body)
+			body, _ := ioutil.ReadAll(req.Body)
 
 			log.Println(body)
 
