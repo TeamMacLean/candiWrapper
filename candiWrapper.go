@@ -95,7 +95,6 @@ type JsonData struct {
 			if err != nil {
 				panic(err)
 			}
-    // log.Println(string(body))
 			var t JsonData
 			err = json.Unmarshal(body, &t)
 			if err != nil {
@@ -108,30 +107,19 @@ type JsonData struct {
         		fmt.Println(err)
         		return
     		}
-    		fmt.Println(string(b))
 
-			// for a, b := range t.Data {
-			// 	log.Println(a)
-			// 	log.Println(b)
-			// }
 
-			logIt(w, "response")
+		galaxyData := string(b)
+		refData := t.Ref
 
-		// for key, value := range req.Form {
-		// 	fmt.Println("Key:", key, "Value:", value)
-		// }
+		galaxyDataLength := len(galaxyData)
+		refDataLength := len(refData)
 
-		// galaxyData := req.PostFormValue(keyName)
-		// refData := req.PostFormValue(refName)
-
-		// galaxyDataLength := len(galaxyData)
-		// refDataLength := len(refData)
-
-		// if galaxyDataLength > 0 && refDataLength > 0{
-			// id := randSeq();
-			// addToRedis(id, string(galaxyData));
-			// logIt(w, rootURL+"?session="+id+"&species=athalianaTair10")
-		// }
+		if galaxyDataLength > 0 && refDataLength > 0{
+			id := randSeq();
+			addToRedis(id, string(galaxyData));
+			logIt(w, rootURL+"?session="+id+"&species=athalianaTair10")
+		}
 		}
 	}
 	func handleGet(w http.ResponseWriter, req *http.Request){
