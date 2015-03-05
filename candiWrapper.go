@@ -22,7 +22,7 @@ var (
 	)
 
 type JsonData struct {
-	Data []string `json:"data"`
+	Data string `json:"data"`
 	Ref string `json:"ref"`
 }
 
