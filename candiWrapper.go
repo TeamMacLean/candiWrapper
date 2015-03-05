@@ -103,11 +103,17 @@ type JsonData struct {
 			}
 			log.Println(t.Ref)
 
+			b, err := json.Marshal(t.Data)
+    		if err != nil {
+        		fmt.Println(err)
+        		return
+    		}
+    		fmt.Println(string(b))
 
-			for a, b := range t.Data {
-				log.Println(a)
-				log.Println(b)
-			}
+			// for a, b := range t.Data {
+			// 	log.Println(a)
+			// 	log.Println(b)
+			// }
 
 			logIt(w, "response")
 
