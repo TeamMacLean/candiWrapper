@@ -53,9 +53,9 @@ type JsonData struct {
 			return randSeq()
 		} else {
 			return sOut
-			
+
 		}
-		
+
 	}
 
 	func initRedis() redis.Conn {
@@ -105,7 +105,7 @@ type JsonData struct {
 
 
 			for a := range t.Data {
-				fmt
+				log.Println(a)
 			}
 
 		// for key, value := range req.Form {
