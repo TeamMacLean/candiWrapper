@@ -22,19 +22,7 @@ var (
 	)
 
 type JsonData struct {
-	Data []struct {
-		AlleleFreq    float64 `json:"allele_freq"`
-		AlternateBase string  `json:"alternate_base"`
-		Change        string  `json:"change"`
-		Chromosome    string  `json:"chromosome"`
-		Effect        string  `json:"effect"`
-		Gene          string  `json:"gene"`
-		InCds         string  `json:"in_cds"`
-		IsCtga        string  `json:"is_ctga"`
-		IsSynonymous  string  `json:"is_synonymous"`
-		Position      float64 `json:"position"`
-		ReferenceBase string  `json:"reference_base"`
-	} `json:"data"`
+	Data []string `json:"data"`
 	Ref string `json:"ref"`
 }
 
