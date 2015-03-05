@@ -101,7 +101,7 @@ func handlePost(w http.ResponseWriter, req *http.Request){
     if err != nil {
         panic(err)
     }
-    log.Println(Ref)
+    log.Println(t.Ref)
 
 		// for key, value := range req.Form {
 		// 	fmt.Println("Key:", key, "Value:", value)
