@@ -7,7 +7,6 @@ import (
 "encoding/json"
 "net/http"
 "time"
-"github.com/ttacon/chalk"
 "github.com/garyburd/redigo/redis"
 )
 
@@ -65,13 +64,13 @@ func handler(w http.ResponseWriter, req *http.Request) {
 	w.Header().Set("Access-Control-Allow-Origin", "*")
 
 	reqType := req.Method
-	log.Println(chalk.Blue,"type: "+reqType,chalk.Reset)
+	log.Println("type: "+reqType)
 
 	if reqType == "POST" {
 		err := req.ParseForm()
 
 		if err != nil {
-			log.Println(chalk.Red,"could not parse form", chalk.Reset)
+			log.Println("could not parse form")
 		} else {
 
 			galaxyData := req.FormValue(keyName)
@@ -99,7 +98,7 @@ func handler(w http.ResponseWriter, req *http.Request) {
 			shortcode := req.URL.Path[1:]
 
 			if len(shortcode) > 0 {
-				log.Println(chalk.Green,"shortcode: "+shortcode,chalk.Reset)
+				log.Println("shortcode: "+shortcode)
 				fromRedis := getFromRedis(shortcode)
 
 				if len(fromRedis) > 0 {
@@ -120,8 +119,9 @@ func handler(w http.ResponseWriter, req *http.Request) {
 
 	func main() {
 		defer redisConnection.Close()
+		defer log.Println("Server Stopped")
 		http.HandleFunc("/", handler)
-		log.Println(chalk.Green,"Starting server on port "+port, chalk.Reset)
+		log.Println("Starting server on port "+port)
 		http.ListenAndServe(port, nil)
 
 	}
