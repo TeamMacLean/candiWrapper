@@ -60,6 +60,53 @@ func getFromRedis(key string) string{
 	return value
 }
 
+func logIt(w http.ResponseWriter, message string){
+	fmt.Fprintf(w, message)
+	log.Println(message)
+}
+
+func handlePost(w http.ResponseWriter, req *http.Request){
+	err := req.ParseForm()
+
+	if err != nil {
+		logIt(w, "could not parse form")
+	} else {
+
+		galaxyData := req.FormValue(keyName)
+		refData := req.FormValue(refName)
+
+		galaxyDataLength := len(galaxyData)
+		refDataLength := len(refData)
+
+		if galaxyDataLength > 0 && refDataLength > 0{
+
+			id := randSeq();
+			addToRedis(id, string(galaxyData));
+			logIt(w, rootURL+"?session="+id+"&species=athalianaTair10")
+		}
+	}
+}
+func handleGet(w http.ResponseWriter, req *http.Request){
+	shortcode := req.URL.Path[1:]
+
+	if len(shortcode) > 0 {
+		log.Println("shortcode: "+shortcode)
+		fromRedis := getFromRedis(shortcode)
+
+		if len(fromRedis) > 0 {
+
+			js, err := json.Marshal(fromRedis)
+			if err != nil {
+				logIt(w, "could not convert to json")
+			} else {
+				w.Header().Set("Content-Type", "application/json")
+				w.Write(js)
+			}
+
+		}
+	}
+}
+
 func handler(w http.ResponseWriter, req *http.Request) {
 	w.Header().Set("Access-Control-Allow-Origin", "*")
 
@@ -67,63 +114,23 @@ func handler(w http.ResponseWriter, req *http.Request) {
 	log.Println("type: "+reqType)
 
 	if reqType == "POST" {
-		err := req.ParseForm()
-
-		if err != nil {
-			log.Println("could not parse form")
-		} else {
-
-			galaxyData := req.FormValue(keyName)
-			refData := req.FormValue(refName)
-
-			galaxyDataLength := len(galaxyData)
-			refDataLength := len(refData)
-
-			if galaxyDataLength > 0 && refDataLength > 0{
-
-				id := randSeq();
-
-
-				addToRedis(id, string(galaxyData));
-				
-				fmt.Fprintf(w, rootURL+"?session="+id+"&species=athalianaTair10")
-				log.Println(rootURL+"?session="+id+"&species=athalianaTair10")
-
-			}
-		}
-
-		} else if(reqType == "GET") {
-
-			shortcode := req.URL.Path[1:]
-
-			if len(shortcode) > 0 {
-				log.Println("shortcode: "+shortcode)
-				fromRedis := getFromRedis(shortcode)
-
-				if len(fromRedis) > 0 {
-
-					js, err := json.Marshal(fromRedis)
-					if err != nil {
-						http.Error(w, err.Error(), http.StatusInternalServerError)
-						return
-					}
-
-					log.Println(fromRedis);
-
-					w.Header().Set("Content-Type", "application/json")
-					w.Write(js)
-					log.Println("sent data")
-
-				}
-			}
-		}
+		handlePost(w, req)
 	}
 
-	func main() {
-		defer redisConnection.Close()
-		defer log.Println("Server Stopped")
-		http.HandleFunc("/", handler)
-		log.Println("Starting server on port "+port)
-		http.ListenAndServe(port, nil)
-
+	else if(reqType == "GET") {
+		handleGet(w,req)			
 	}
+
+	else {
+		logIt(w, "did not receive GET or POST")
+	}
+}
+
+func main() {
+	defer redisConnection.Close()
+	defer log.Println("Server Stopped")
+	http.HandleFunc("/", handler)
+	log.Println("Starting server on port "+port)
+	http.ListenAndServe(port, nil)
+
+}
