@@ -6,6 +6,7 @@ import (
 "math/rand"
 "encoding/json"
 "net/http"
+"io/ioutil"
 "time"
 "github.com/garyburd/redigo/redis"
 )
@@ -78,13 +79,13 @@ func handlePost(w http.ResponseWriter, req *http.Request){
 
 		body, err := ioutil.ReadAll(req.Body)
     if err != nil {
-        panic()
+        panic(err)
     }
     log.Println(string(body))
     var t test_struct
     err = json.Unmarshal(body, &t)
     if err != nil {
-        panic()
+        panic(err)
     }
     log.Println(t.Test)
 
