@@ -100,12 +100,11 @@ func handlePost(w http.ResponseWriter, req *http.Request){
 		// galaxyDataLength := len(galaxyData)
 		// refDataLength := len(refData)
 
-		if galaxyDataLength > 0 && refDataLength > 0{
-
-			id := randSeq();
-			addToRedis(id, string(galaxyData));
-			logIt(w, rootURL+"?session="+id+"&species=athalianaTair10")
-		}
+		// if galaxyDataLength > 0 && refDataLength > 0{
+			// id := randSeq();
+			// addToRedis(id, string(galaxyData));
+			// logIt(w, rootURL+"?session="+id+"&species=athalianaTair10")
+		// }
 	}
 }
 func handleGet(w http.ResponseWriter, req *http.Request){
